@@ -1,0 +1,16 @@
+{
+  "name": "novaopensource",
+  "version": "1.0.0",
+  "description": "",
+  "main": "source/index.js",
+  "scripts": {
+    "test": "node ."
+  },
+  "author": "EmanSza",
+  "license": "ISC",
+  "dependencies": {
+    "chalk": "^4.1.0",
+    "discord.js": "^12.5.1",
+    "mongoose": "^5.11.15"
+  }
+}
