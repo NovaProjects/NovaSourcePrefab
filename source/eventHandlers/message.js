@@ -1,20 +1,23 @@
-const { processArguments } = require("../utils/utils")
+const { processArguments, msToTime } = require("../utils/utils")
 const { Collection } = require("discord.js")
 const cooldowns = new Collection();
-const { PREFIX, BOTADMINS, Developers, someServers} = require('../../config/botconfig.json')
+const { BOTADMINS, Developers, someServers} = require('../../config/botconfig.json')
 
 module.exports = async (client, message) => {
     if (message.author.bot || message.channel.type === 'dm') return;
 
-    if (!message.content.startsWith(PREFIX)) return;
+    let DBGuild = await client.DBGuild.findByIdAndUpdate(message.guild.id, {}, { new: true, upsert: true, setDefaultsOnInsert: true });
 
-    let msgargs = message.content.substring(PREFIX.length).split(new RegExp(/\s+/));
+    if (!message.content.startsWith(DBGuild.prefix)) return;
+
+    let msgargs = message.content.substring(DBGuild.prefix.length).split(new RegExp(/\s+/));
     let cmdName = msgargs.shift().toLowerCase();
     
     const command = await client.commands.get(cmdName) || client.commands.find(cmd => cmd.aliases && cmd.aliases.includes(cmdName));
 
     if (!command) return;
     if(command.devOnly && !Developers.includes(message.author.id)) return;
+    if(command.disabled === true) return;
 
 
 
@@ -31,7 +34,7 @@ module.exports = async (client, message) => {
         const cooldownAmount = cd * 1000;
         if (timestamps.has(message.author.id)) {
             const expirationTime = timestamps.get(message.author.id) + cooldownAmount;
-            if (now < expirationTime) return await message.channel.send(`${message.author.username}, please wait \`${msToTime(expirationTime - now)}\` before using this command again.`)
+            if (now < expirationTime) return await message.channel.send(`${message.author.tag}, please wait \`${msToTime(expirationTime - now)}\` before using this command again.`)
         }
 
         timestamps.set(message.author.id, now);

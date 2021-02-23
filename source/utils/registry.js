@@ -2,7 +2,6 @@ const fs = require('fs').promises;
 const path = require('path');
 const chalk = require('chalk')
 async function registerCommands(client, dir) {
-    console.log(chalk.magenta('<HANDLER>') + (' ') + chalk.blue('Loading Commands'))
     let files = await fs.readdir(path.join(__dirname, dir));
     // Loop through each file.
     for(let file of files) {
@@ -25,11 +24,9 @@ async function registerCommands(client, dir) {
             }
         }
     }
-    console.log(chalk.magenta('<HANDLER>') + (' ') + chalk.blue(`Loaded ${files.length} Command`))
 }
 
 async function registerEvents(client, dir) {
-    console.log(chalk.magenta('<HANDLER>') + (' ') + chalk.blue('Loading Events'))
     let files = await fs.readdir(path.join(__dirname, dir));
     // Loop through each file.
     for(let file of files) {
@@ -50,7 +47,6 @@ async function registerEvents(client, dir) {
             }
         }
     }
-    console.log(chalk.magenta('<HANDLER>') + (' ') + chalk.blue(`Loaded ${files.length} Events`))
 }
 
 module.exports = {

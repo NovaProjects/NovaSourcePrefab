@@ -8,7 +8,7 @@ module.exports = {
     usage: `\`See how fast the bot is\``,
     examples: `\`${PREFIX}ping\``,
     perms: [],
-    cooldown: 0,
+    cooldown: 5,
     disabled: false,
 
     execute: async function(client, message, args) {

@@ -12,6 +12,13 @@ const caseSchema = Schema({
 
 const guildSchema = Schema({
     _id: String,
+    prefix: {
+        type: String,
+        default: '!'
+    },
+    modlog: {
+        type: String,
+    },
     case: caseSchema
 });
 
