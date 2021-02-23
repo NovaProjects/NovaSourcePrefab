@@ -15,7 +15,7 @@ const client = new Discord.Client()
 client.login(TOKEN); { log(chalk.red('<CLIENT>') + (' ') + chalk.blue('Logging in'))}
 //Cient Ready Statement
 client.on('ready', async () => {
-    setTimeout(() => { log(chalk.red(`<CLIENT>`) + (' ') + chalk.blue(`Logged in as [${client.         user.tag}]`)); }, 800)
+    setTimeout(() => { log(chalk.red(`<CLIENT>`) + (' ') + chalk.blue(`Logged in as [${client.user.tag}]`)); }, 800)
     client.user.setPresence({ activity: {name: `${PREFIX}help`, type: 'LISTENING'}})
 });
 
