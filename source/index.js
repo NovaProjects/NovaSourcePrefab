@@ -34,4 +34,5 @@ client.on('ready', async () => {
     }); { setTimeout(() => { log(chalk.green(`<DATABASE>`) + (' ') + chalk.blue(`Logged in!`)); }, 5) }
     //Schemas
     client.DBGuild = require('../config/schemas/guildSchema')
+    client.DBCase = require('../config/schemas/caseSchema')
 })();
