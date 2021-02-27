@@ -3,17 +3,18 @@ const { MessageEmbed } = require('discord.js')
 // Change DIR if needed
 
 module.exports = {
-    name: "ban",
+    name: "warn",
     aliases: [],
     description: "",
-    usage: `\`Kick the Bot\``,
+    usage: `\`Warn a user\``,
     examples: `\`${PREFIX}ping\``,
     perms: [],
-    cooldown: 10,
+    cooldown: 0,
     disabled: false,
 
     execute: async function(client, message, args) {
-if(!message.member.hasPermission('BAN_MEMBERS')) return msg.reply('You Require BAN_MEMBERS');
+        //Permissions Required
+if(!message.member.hasPermission('KICK_MEMBERS')) return msg.reply('You Require MANAGE_CHANNELS');
         let user = client.users.cache.get(args[0]) || message.mentions.users.first(); //By Mention or by ID
         if(!user) return message.channel.send('Couldn\`t catch a user!')
 
@@ -26,20 +27,31 @@ if(!message.member.hasPermission('BAN_MEMBERS')) return msg.reply('You Require B
         await client.DBGuild.findByIdAndUpdate(message.guild.id, {$inc: {totalCases: 1} })
         var DBGuild = await client.DBGuild.findById(message.guild.id)
         await client.DBGuild.findByIdAndUpdate(DBGuild.totalCases, {new: true, upsert: true})
-        await client.DBCase.findByIdAndUpdate(DBGuild.totalCases, {$set: {user: user.id, reason: reason, type: 'Ban', Moderator: message.author.id}}, { new: true, upsert: true, setDefaultsOnInsert: true })
-        var DBCase = await client.DBCase.findById(DBGuild.totalCases)
+        await client.DBCase.findByIdAndUpdate(DBGuild.totalCases, {$set: {user: user.id, reason: reason, type: 'Warn', Moderator: message.author.id}}, { new: true, upsert: true, setDefaultsOnInsert: true })
+        // var DBCase = await client.DBCase.findById(DBGuild.totalCases)
     } catch(err) {
         console.log(err)
     }
+    let userCase = await client.DBCase.find( { user: user.id, type: 'Warn'} )
+
+    if ( userCase.length >= 3 ) {
+        await message.guild.members.ban(user.id, (options = { reason: 'Exceeded Warn Limit of 3' }));
+        message.channel.send(`<@${user.id}> has Exceeded The warn limit of 3`)
+        await client.DBCase.deleteMany( { user: user.id, type: 'Warn'} )
+        return;
+    }
+
         const channel = message.guild.channels.cache.get(DBGuild.modlog)
+        if(!DBGuild.modlog) return message.reply(`Warned ${user.tag}`)
         
         const embed = new MessageEmbed()
-        .setTitle(`Case Number# ${DBGuild.totalCases}`)
+        .setTitle(`Case Number #${DBGuild.totalCases}`)
         .addField('Moderator', message.author.id, true)
-        .addField('User Kicked', user.tag, true)
+        .addField('User Warned', user.tag, true)
         .addField('Reason', reason, false)
         .setColor('#FF2200')
-        member.ban({reason: reason})
+
         channel.send(embed)
+        message.channel.send(`Warned ${user.id} with case ID:${DBGuild.totalCases}`)
     }
 }

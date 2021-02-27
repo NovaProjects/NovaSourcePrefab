@@ -35,4 +35,5 @@ client.on('ready', async () => {
     //Schemas
     client.DBGuild = require('../config/schemas/guildSchema')
     client.DBCase = require('../config/schemas/caseSchema')
+    client.DBCaseArchive = require('../config/schemas/caseSchema')
 })();

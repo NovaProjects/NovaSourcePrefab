@@ -9,7 +9,7 @@ module.exports = {
     usage: `\`Kick the Bot\``,
     examples: `\`${PREFIX}ping\``,
     perms: [],
-    cooldown: 0,
+    cooldown: 10,
     disabled: false,
 
     execute: async function(client, message, args) {
@@ -27,7 +27,7 @@ if(!message.member.hasPermission('KICK_MEMBERS')) return msg.reply('You Require 
         await client.DBGuild.findByIdAndUpdate(message.guild.id, {$inc: {totalCases: 1} })
         var DBGuild = await client.DBGuild.findById(message.guild.id)
         await client.DBGuild.findByIdAndUpdate(DBGuild.totalCases, {new: true, upsert: true})
-        await client.DBCase.findByIdAndUpdate(DBGuild.totalCases, {$set: {user: user.id, reason: reason, type: 'Kick', Moderator: message.author.tag}}, { new: true, upsert: true, setDefaultsOnInsert: true })
+        await client.DBCase.findByIdAndUpdate(DBGuild.totalCases, {$set: {user: user.id, reason: reason, type: 'Kick', Moderator: message.author.id}}, { new: true, upsert: true, setDefaultsOnInsert: true })
         var DBCase = await client.DBCase.findById(DBGuild.totalCases)
     } catch(err) {
         console.log(err)
