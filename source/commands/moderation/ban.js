@@ -22,15 +22,9 @@ if(!message.member.hasPermission('BAN_MEMBERS')) return msg.reply('You Require B
 
         let reason = args.splice(1).join(' ');
         if(!reason) return message.reply('Invaild Reason!');
-    try{
         await client.DBGuild.findByIdAndUpdate(message.guild.id, {$inc: {totalCases: 1} })
         var DBGuild = await client.DBGuild.findById(message.guild.id)
-        await client.DBGuild.findByIdAndUpdate(DBGuild.totalCases, {new: true, upsert: true})
         await client.DBCase.findByIdAndUpdate(DBGuild.totalCases, {$set: {user: user.id, reason: reason, type: 'Ban', Moderator: message.author.id}}, { new: true, upsert: true, setDefaultsOnInsert: true })
-        var DBCase = await client.DBCase.findById(DBGuild.totalCases)
-    } catch(err) {
-        console.log(err)
-    }
         const channel = message.guild.channels.cache.get(DBGuild.modlog)
         
         const embed = new MessageEmbed()

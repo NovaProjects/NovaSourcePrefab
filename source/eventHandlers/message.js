@@ -1,7 +1,7 @@
 const { processArguments, msToTime } = require("../utils/utils")
 const { Collection } = require("discord.js")
 const cooldowns = new Collection();
-const { BOTADMINS, Developers, someServers} = require('../../config/botconfig.json')
+const { Developers } = require('../../config/botconfig.json')
 
 module.exports = async (client, message) => {
     if (message.author.bot || message.channel.type === 'dm') return;

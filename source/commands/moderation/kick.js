@@ -14,7 +14,7 @@ module.exports = {
 
     execute: async function(client, message, args) {
         //Permissions Required
-if(!message.member.hasPermission('KICK_MEMBERS')) return msg.reply('You Require MANAGE_CHANNELS');
+if(!message.member.hasPermission('KICK_MEMBERS')) return msg.reply('You Require KICK_MEMBERS');
         let user = client.users.cache.get(args[0]) || message.mentions.users.first(); //By Mention or by ID
         if(!user) return message.channel.send('Couldn\`t catch a user!')
 

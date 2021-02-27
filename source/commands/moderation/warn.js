@@ -14,7 +14,7 @@ module.exports = {
 
     execute: async function(client, message, args) {
         //Permissions Required
-if(!message.member.hasPermission('KICK_MEMBERS')) return msg.reply('You Require MANAGE_CHANNELS');
+if(!message.member.hasPermission('MANAGE_CHANNELS')) return msg.reply('You Require MANAGE_CHANNELS');
         let user = client.users.cache.get(args[0]) || message.mentions.users.first(); //By Mention or by ID
         if(!user) return message.channel.send('Couldn\`t catch a user!')
 
@@ -37,7 +37,7 @@ if(!message.member.hasPermission('KICK_MEMBERS')) return msg.reply('You Require 
     if ( userCase.length >= 3 ) {
         await message.guild.members.ban(user.id, (options = { reason: 'Exceeded Warn Limit of 3' }));
         message.channel.send(`<@${user.id}> has Exceeded The warn limit of 3`)
-        await client.DBCase.deleteMany( { user: user.id, type: 'Warn'} )
+        await client.DBCase.update(userCase, {$set: {type: 'Archived'}})
         return;
     }
 
