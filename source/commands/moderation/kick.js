@@ -28,11 +28,11 @@ if(!message.member.hasPermission('KICK_MEMBERS')) return msg.reply('You Require 
         var DBGuild = await client.DBGuild.findById(message.guild.id)
         await client.DBGuild.findByIdAndUpdate(DBGuild.totalCases, {new: true, upsert: true})
         await client.DBCase.findByIdAndUpdate(DBGuild.totalCases, {$set: {user: user.id, reason: reason, type: 'Kick', Moderator: message.author.id}}, { new: true, upsert: true, setDefaultsOnInsert: true })
-        var DBCase = await client.DBCase.findById(DBGuild.totalCases)
     } catch(err) {
         console.log(err)
     }
         const channel = message.guild.channels.cache.get(DBGuild.modlog)
+        if(!DBGuild.modlog) return message.reply(`Kicked ${user.tag} with case id ${DBGuild.totalCases}`)
         
         const embed = new MessageEmbed()
         .setTitle(`Case Number# ${DBGuild.totalCases}`)

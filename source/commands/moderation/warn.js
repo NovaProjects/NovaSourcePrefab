@@ -42,7 +42,7 @@ if(!message.member.hasPermission('MANAGE_CHANNELS')) return msg.reply('You Requi
     }
 
         const channel = message.guild.channels.cache.get(DBGuild.modlog)
-        if(!DBGuild.modlog) return message.reply(`Warned ${user.tag}`)
+        if(!DBGuild.modlog) return message.reply(`Warned ${user.tag} with case id ${DBGuild.totalCases}`)
         
         const embed = new MessageEmbed()
         .setTitle(`Case Number #${DBGuild.totalCases}`)

@@ -15,7 +15,8 @@ module.exports = {
         if(!message.member.hasPermission('MANAGE_CHANNELS')) return msg.reply('You Require MANAGE_CHANNELS');
         const channel = message.mentions.channels.first() || message.guild.channels.cache.get(args[0])
         if(!channel) return message.reply('Mention a channel or give me a channel id!')
-        let DBGuild = await client.DBGuild.findByIdAndUpdate(message.guild.id, {$set: {modlog: channel.id }})
-        message.channel.send(`I will now log Moderation Logs in ${channel.id}`)
+        await client.DBGuild.findByIdAndUpdate(message.guild.id, {$set: {modlog: channel.id }}).then(
+            message.channel.send(`I will now log Moderation Logs in ${channel.id}`) 
+        )
     }
 }

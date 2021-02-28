@@ -1,5 +1,6 @@
 {
     "TOKEN": "TOKENURL",
     "PREFIX": "PREFIX",
-    "MONGOURI": "MONGODBURI"
+    "MONGOURI": "MONGODBURI",
+    "DEVELOPERS": []
 }

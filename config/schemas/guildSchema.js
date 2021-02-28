@@ -16,6 +16,9 @@ const guildSchema = Schema({
     },
     modlog: {
         type: String,
+    },
+    muterole: {
+        type: String
     }
 });
 

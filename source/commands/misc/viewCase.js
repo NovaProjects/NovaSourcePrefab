@@ -13,7 +13,7 @@ module.exports = {
     disabled: false,
 
     execute: async function(client, message, args) {
-if(!message.member.hasPermission('MANAGE_MESSAGES')) return msg.reply('You Require MANAGE_MESSAGES');
+    if(!message.member.hasPermission('MANAGE_MESSAGES')) return msg.reply('You Require MANAGE_MESSAGES');
 
     let CaseID = args.splice(0).join(' ');
     if(!CaseID) return message.reply('Invaild Case!');

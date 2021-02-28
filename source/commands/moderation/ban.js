@@ -26,6 +26,7 @@ if(!message.member.hasPermission('BAN_MEMBERS')) return msg.reply('You Require B
         var DBGuild = await client.DBGuild.findById(message.guild.id)
         await client.DBCase.findByIdAndUpdate(DBGuild.totalCases, {$set: {user: user.id, reason: reason, type: 'Ban', Moderator: message.author.id}}, { new: true, upsert: true, setDefaultsOnInsert: true })
         const channel = message.guild.channels.cache.get(DBGuild.modlog)
+        if(!DBGuild.modlog) return message.reply(`Banned ${user.tag} with case id ${DBGuild.totalCases}`)
         
         const embed = new MessageEmbed()
         .setTitle(`Case Number# ${DBGuild.totalCases}`)
