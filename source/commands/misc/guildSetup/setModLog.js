@@ -1,8 +1,8 @@
-const { PREFIX } = require('../../../config/botconfig.json')
+const { PREFIX } = require('../../../../config/botconfig.json')
 // Change DIR if needed
 
 module.exports = {
-    name: "modlog",
+    name: "setmodlog",
     aliases: [],
     description: "",
     usage: `\`${PREFIX}\``,

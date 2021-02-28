@@ -1,4 +1,4 @@
-const { PREFIX } = require('../../../config/botconfig.json')
+const { PREFIX } = require('../../../../config/botconfig.json')
 // Change DIR if needed
 
 module.exports = {

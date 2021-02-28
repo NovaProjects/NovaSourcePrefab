@@ -19,6 +19,12 @@ const guildSchema = Schema({
     },
     muterole: {
         type: String
+    },
+    staffrole: {
+        type: String
+    },
+    ticketCategory: {
+        type: String
     }
 });
 

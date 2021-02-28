@@ -2,5 +2,6 @@
     "TOKEN": "TOKENURL",
     "PREFIX": "PREFIX",
     "MONGOURI": "MONGODBURI",
+    "DISCORD": "DISCORDINVITE",
     "DEVELOPERS": []
 }
