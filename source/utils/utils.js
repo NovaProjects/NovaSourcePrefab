@@ -218,5 +218,5 @@ return data
 
 module.exports = {
     processArguments, blacklist, whitelist, paginate,
-    getReply, randomRange, delay, msToTime
+    getReply, randomRange, delay, msToTime, getDataFromServer
 }
