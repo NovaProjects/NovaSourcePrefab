@@ -1,5 +1,6 @@
 const { Message, User, MessageEmbed, Client } = require("discord.js");
 const reactions = ['◀️', '▶️']
+const axios = require('axios')
 
 /**
  * Function to check if the user has passed in the proper arguments when using a command
@@ -206,6 +207,13 @@ function msToTime(ms) {
     hour = hour % 24;
     return day ? (hour ? (`${day}d ${hour}h ${minute}m ${seconds}s`) : (minute ? (`${day}d ${minute}m ${seconds}s`) : (`${day}d ${seconds}s`))) :
                  (hour ? (`${hour}h ${minute}m ${seconds}s`) : (minute ? (`${minute}m ${seconds}s`) : (`${seconds}s`)))
+}
+async function getDataFromServer(url){
+const data = await axios({
+    method: 'get',
+    url: url
+})
+return data
 }
 
 module.exports = {
