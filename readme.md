@@ -1,8 +1,8 @@
-## NovaOpenSource a Project by EmanSza
+### NovaOpenSource
 
 ## Before installing
-Please Note: I am doing this so people who are new can have a easy to use Discord Bot *But* I ask that you do not make your Bot Public. I know there are other bots but I do not want to contribute to that kind of community. This is more of a Easy to Read and learn
+Please Note: I am doing this so people who are new can have an easy-to-use Discord bot *but* I ask that you do not make your bot public. I know there are other bots but I do not want to contribute to that kind of community. This prefab is only for learning.
 
 ## What is NovaOpenSource
-NovaOpenSource is a Bot that is a Branch of the Nova Series. As the Name says its open sourced.
+NovaOpenSource is a series of bot prefabs or examples so that discord.js beginners can learn the library easily.
  
