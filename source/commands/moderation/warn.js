@@ -7,14 +7,12 @@ module.exports = {
     aliases: [],
     description: "",
     usage: `\`Warn a user\``,
-    examples: `\`${PREFIX}ping\``,
-    perms: [],
+    examples: `\`${PREFIX}warn @mention or id\``,
+    perms: ["MANAGE_CHANNELS"],
     cooldown: 0,
     disabled: false,
 
     execute: async function(client, message, args) {
-        //Permissions Required
-if(!message.member.hasPermission('MANAGE_CHANNELS')) return msg.reply('You Require MANAGE_CHANNELS');
         let user = client.users.cache.get(args[0]) || message.mentions.users.first(); //By Mention or by ID
         if(!user) return message.channel.send('Couldn\`t catch a user!')
 

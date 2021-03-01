@@ -5,9 +5,9 @@ module.exports = {
     name: "ticketsytem",
     aliases: [],
     description: "",
-    usage: `\`${PREFIX}\``,
-    examples: `\`${PREFIX}\``,
-    perms: [],
+    usage: `Setup ticketing in a guild`,
+    examples: `\`${PREFIX}\`ticketsystem`,
+    perms: ["MANAGE_CHANNELS"],
     cooldown: 0,
     devOnly: false,
 

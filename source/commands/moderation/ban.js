@@ -6,14 +6,13 @@ module.exports = {
     name: "ban",
     aliases: [],
     description: "",
-    usage: `\`Kick the Bot\``,
-    examples: `\`${PREFIX}ping\``,
-    perms: [],
+    usage: `\`Ban a user\``,
+    examples: `\`${PREFIX}ban @mention or userid\``,
+    perms: ['BAN_MEMBERS'],
     cooldown: 10,
     disabled: false,
 
     execute: async function(client, message, args) {
-if(!message.member.hasPermission('BAN_MEMBERS')) return msg.reply('You Require BAN_MEMBERS');
         let user = client.users.cache.get(args[0]) || message.mentions.users.first(); //By Mention or by ID
         if(!user) return message.channel.send('Couldn\`t catch a user!')
 
