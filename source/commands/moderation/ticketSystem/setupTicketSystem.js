@@ -1,36 +1,60 @@
-const { PREFIX } = require('../../config/botconfig.json')
-// Change DIR if needed
+import { MessageEmbed } from "discord.js";
+import schema from "../../schemas/ticket-schema"
+const emoji = '📬'
+const embed = new MessageEmbed()
+.setTitle('Support will be as faster as they can')
+.setDescription(`To create a ticket react with ${emoji}`)
+.setColor('GREEN')
 
-module.exports = {
-    name: "ticketsytem",
-    aliases: [],
-    description: "",
-    usage: `Setup ticketing in a guild`,
-    examples: `\`${PREFIX}\`ticketsystem`,
-    perms: ["MANAGE_CHANNELS"],
-    cooldown: 0,
-    devOnly: false,
+export default {
+    name: 'ticket',
+    category: 'Settings',
+    callback: async (message: any, args: any, lang: any, client: any) => {
 
-    execute: async function(client, message, args) {
-        // Find Guilds Staff Role
-        var DBGuild = await client.DBGuild.findById(message.guild.id)
+        let ch: any;
+        const seeIfiTisAchannel = message.mentions.channels.first() || null
+        if (seeIfiTisAchannel == null) {
+            if (isNaN(args[0])) return message.channel.send('Weird channel id')
+            const channel = client.channels.cache.get(args[0])
+            if (!channel) return message.channel.send('Invalid channel id')
+            const canal = message.guild.channels.cache.get(args[0])
+            if (!canal) return message.channel.send('That channel isn\'t from this server')
+            else ch = canal.id
+        } else ch = seeIfiTisAchannel.id
 
-       let category = message.guild.channels.create(`ticketsystem`,  {
-          type: 'category',
-          permissionOverwrites: [
+        if (!args[1]) return message.channel.send('You forgot to send a category id')
+        let cat;
+        const category = client.channels.cache.get(args[1]) || client.channels.cache.find((ch: any) => ch.name == args[1])
+        if (!category) return message.channel.send('Invalid category id or name')
+        const categoria = message.guild.channels.cache.get(args[1]) || message.guild.channels.cache.find((ch: any) => ch.name == args[1])
+        if (!categoria) return message.channel.send('That category isn\'t from this server')
+        if (categoria.type != 'category') return message.channel.send('That category isn\'t a category!')
+        else cat = categoria.id
+
+        let rol;
+        if (args[2]) {
+        const seeIfiTisArole = message.mentions.roles.first() || 'a'
+        if (seeIfiTisArole == 'a') {
+            const cargo = message.guild.roles.cache.get(args[2]) || message.guild.roles.cache.find((r: any) => r.name == args.slice(2).join(' '))
+            if (!cargo) return message.channel.send('Couldn\'t find the role you\'re looking for')
+            else rol = cargo.id
+        } else rol = seeIfiTisArole.id
+
+        }
+
+        const msg = await message.guild.channels.cache.get(ch).send(embed).catch(() => { return message.channel.send(`I don't have permissions to send ticket message in <#${ch.id}>`)})
+        msg.react(emoji)
+        const id = msg.id
+
+        if (args[2]) {
+
+        await schema.findOneAndUpdate({ _id: message.guild.id }, 
             {
-              id: DBGuild.staffrole,
-              deny: ['VIEW_CHANNEL', 'SEND_MESSAGES']
-            },
-           {
-             id: message.guild.roles.everyone,
-             deny: ['SEND_MESSAGES'],
-             allow: ['VIEW_CHANNEL']
-           }
-          ]
-          
-        })
-        await client.DBGuild.findByIdAndUpdate(message.guild.id, {$set: { ticketCategory: category.id } })
-
-    }
+               channel: ch, 
+               category: cat,
+               role: rol,
+               msg: id   
+            }, { upsert: true })
+        } else await schema.findOneAndUpdate({ _id: message.guild.id }, { channel: ch, msg: id, category: cat }, { upsert: true })
+}}
 }
