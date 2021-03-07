@@ -1,38 +1,59 @@
 //Require Modules
-const Discord = require('discord.js');
-const mongoose = require('mongoose')
-const path = require('path');
-const chalk = require("chalk");
+import { Client, Collection } from "discord.js";
+import { connect } from "mongoose";
+import { join } from "path";
+import { red, blue, magenta, green } from "chalk";
 const log = console.log;
 
 //File Requirements
-const { TOKEN, PREFIX, MONGOURI } = require(path.join(__dirname, "../config/botconfig.json"));
-const { registerCommands, registerEvents } = require(path.join(__dirname, "./utils/registry"))
+const { TOKEN, PREFIX, MONGOURI } = require(join(
+    __dirname,
+    "../config/botconfig.json"
+));
+const { registerCommands, registerEvents } = require(join(
+    __dirname,
+    "./utils/registry"
+));
 
 // Client Statements
-const client = new Discord.Client()
+const client = new Client();
 //Login
-client.login(TOKEN); { log(chalk.red('<CLIENT>') + (' ') + chalk.blue('Logging in'))}
+client.login(TOKEN);
+{
+    log(red("<CLIENT>") + " " + blue("Logging in"));
+}
 //Cient Ready Statement
-client.on('ready', async () => {
-    setTimeout(() => { log(chalk.red(`<CLIENT>`) + (' ') + chalk.blue(`Logged in as [${client.user.tag}]`)); }, 800)
-    client.user.setPresence({ activity: {name: `${PREFIX}help`, type: 'LISTENING'}})
+client.on("ready", async () => {
+    setTimeout(() => {
+        log(red(`<CLIENT>`) + " " + blue(`Logged in as [${client.user.tag}]`));
+    }, 800);
+    client.user.setPresence({
+        activity: { name: `${PREFIX}help`, type: "LISTENING" },
+    });
 });
 
-
-// Async Fucktion 
+// Async Fucktion
 (async () => {
-    client.commands = new Discord.Collection();
+    client.commands = new Collection();
     // Commands + Event Functions || Console Logging after Loop
-    await registerEvents(client, '../eventHandlers').then(log(chalk.magenta('<HANDLER>') + (' ') + chalk.blue(`Loaded Events`)))
-    await registerCommands(client, '../commands').then(log(chalk.magenta('<HANDLER>') + (' ') + chalk.blue(`Loaded Commands`)));
+    await registerEvents(client, "../eventHandlers").then(
+        log(magenta("<HANDLER>") + " " + blue(`Loaded Events`))
+    );
+    await registerCommands(client, "../commands").then(
+        log(magenta("<HANDLER>") + " " + blue(`Loaded Commands`))
+    );
     //Mongoos
-    await mongoose.connect(MONGOURI, {
+    await connect(MONGOURI, {
         useNewUrlParser: true,
         useUnifiedTopology: true,
-        useFindAndModify: false
-    }); { setTimeout(() => { log(chalk.green(`<DATABASE>`) + (' ') + chalk.blue(`Logged in!`)); }, 5) }
+        useFindAndModify: false,
+    });
+    {
+        setTimeout(() => {
+            log(green(`<DATABASE>`) + " " + blue(`Logged in!`));
+        }, 5);
+    }
     //Schemas
-    client.DBGuild = require('../config/schemas/guildSchema')
-    client.DBCase = require('../config/schemas/caseSchema')
+    client.DBGuild = require("../config/schemas/guildSchema");
+    client.DBCase = require("../config/schemas/caseSchema");
 })();
