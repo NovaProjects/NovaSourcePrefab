@@ -1,4 +1,4 @@
-const mongoose = require('mongoose'
+const mongoose = require('mongoose')
 
 const guild = new mongoose.Schema({
     _id: {
