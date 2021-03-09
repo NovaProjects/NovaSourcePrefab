@@ -2,7 +2,7 @@ const { MessageEmbed } = require("discord.js");
 const schema = require('get schema')
 const emoji = '📬'
 const embed = new MessageEmbed()
-.setTitle('Support will be as faster as they can')
+.setTitle('Support will be as fast as they can')
 .setDescription(`To create a ticket react with ${emoji}`)
 .setColor('GREEN')
 
