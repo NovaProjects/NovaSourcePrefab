@@ -1,4 +1,4 @@
-const { MessageEmbed } = require('discord.js');
+const { MessageEmbed, Message, MessageReaction } = require('discord.js');
 const { PREFIX } = require('../../../config/botconfig.json');
 const ticket = require('../../../config/schemas/ticketSystem');
 const ticketConfig = require('../../../config/schemas/ticketConfig');
@@ -34,16 +34,11 @@ module.exports = {
            id: message.guild.id,
            deny: 1024
         }]
-    
-        console.log('First', permissions)
 
         const role = await message.guild.roles.cache.get(config.roleId)
         if (config.roleId && !role) {
             await ticketConfig.findOneAndUpdate({ gId: message.guild.id }, { gId: message.guild.id, roleId: null})
         } else permissions.push({ id: config.roleId, allow: 117760 })
-    
-
-        console.log('Second', permissions)
 
         const channel = await message.guild.channels.create(`ticket-${message.member.displayName || message.author.username}`, {
             type: 'text',
@@ -57,6 +52,11 @@ module.exports = {
         
         embed.setDescription(`${message.author.username} has Created a ticket!\nReason: ${reason}`)
         channel.send(`${message.author}, ${role}`, { embed: embed })
+        message.channel.send(message.author, { embed: 
+            new MessageEmbed()
+            .setColor('BLUE')
+            .setDescription(`Your ticket has been created in ${channel}`)
+        })
         
         await new ticket({
             gId: message.guild.id,
