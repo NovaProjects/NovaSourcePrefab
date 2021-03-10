@@ -1,7 +1,6 @@
-const { MessageEmbed, Message } = require('discord.js');
+const { MessageEmbed } = require('discord.js');
 const { PREFIX } = require('../../../config/botconfig.json');
 const ticket = require('../../../config/schemas/ticketSystem');
-const ticketConfig = require('../../../config/schemas/ticketConfig');
 
 module.exports = { 
     name: "deleteticket", 
