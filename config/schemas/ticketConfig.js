@@ -5,6 +5,7 @@ const ticketConfig = mongoose.Schema({
     chanId: { type: String },
     catId: { type: String },
     roleId: { type: String },
+    claim: { type: Boolean },
     msgId: { type: String }
 });
 
