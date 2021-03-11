@@ -24,6 +24,9 @@ module.exports = {
             {
                 id: message.author.id,
                 allow: 117760
+            }, {
+                id: message.guild.id,
+                deny: 1024
             }
         ]
 
