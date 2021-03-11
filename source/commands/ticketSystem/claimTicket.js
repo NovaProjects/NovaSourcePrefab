@@ -2,8 +2,8 @@ const { PREFIX } = require('../../../config/botconfig.json');
 
 module.exports = {
     name: "claim",
-    aliases: ["claimticket", "createticket"],
-    description: "Claim a ticket",
+    aliases: ["claimticket"],
+    description: "Claims a ticket",
     usage: `${PREFIX}claim`, 
     examples: `\`${PREFIX}\`claim`,
     perms: [],
@@ -13,10 +13,9 @@ module.exports = {
         
         const thisTicket = await client.DBTickets.findOne({ gId: message.guild.id, chanId: message.channel.id })
         if (!thisTicket) return message.channel.send('You can only claim ticket channels!')
-
+        if (thisTicket?.claimed) return message.channel.send('This ticket has already been claimed!')
+    
         const config = await client.DBTicketConfig.findOne({ gId: message.guild.id })
-
-        if (!config) return message.channel.send('put here some text')
 
         let role;
 
@@ -30,7 +29,7 @@ module.exports = {
             }
         ]
 
-        if (config.roleId) {
+        if (config?.roleId) {
 
             role = message.guild.roles.cache.get(config.roleId)
  
@@ -45,8 +44,8 @@ module.exports = {
         }
 
         message.channel.overwritePermissions(permissions, `Claiming ticket for ${message.author.tag}`)
-
-        client.DBTickets.findOneAndUpdate({ gId: message.guild.id, chanId: message.channel.id }, { gId: message.guild.id, claim: true, claimId: message.author.id })
+        console.log(message.channel.id)
+        client.DBTickets.findOneAndUpdate({ gId: message.guild.id, chanId: message.channel.id }, { gId: message.guild.id, claimed: true })
 
         message.channel.send('You have successfully claimed the ticket!')
 
