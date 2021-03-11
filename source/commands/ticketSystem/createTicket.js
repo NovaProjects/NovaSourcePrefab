@@ -11,7 +11,7 @@ module.exports = {
     description: "Opens a new ticket", 
     usage: `Create a new ticket`, 
     examples: `\`${PREFIX}\`ticket`, 
-    cooldown: 0,
+    cooldown: 20,
     devOnly: false,  
     execute: async function(client, message, args) {
 

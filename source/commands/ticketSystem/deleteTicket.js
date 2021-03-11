@@ -7,26 +7,24 @@ module.exports = {
     description: "Deletes a ticket", 
     usage: `Delete a ticket`, 
     examples: `\`${PREFIX}\`deleteticket`, 
-    cooldown: 0,
+    cooldown: 10,
     devOnly: false,  
-    execute: async function(client, message, args) {
+    execute: async function(client, message) { 
 
-        const tickets = await client.DBTickets.findOne({ gId: message.guild.id, chanId: message.channel.id })
-        if (!tickets) return message.channel.send('You can only delete ticket channels!')
+       const tickets = await client.DBTickets.findOne({ gId: message.guild.id, chanId: message.channel.id })
+       if (!tickets) return message.channel.send('You can only delete ticket channels!')
+       else await client.DBTickets.findOneAndDelete({ gId: message.guild.id, chanId: message.channel.id })
 
         message.channel.send("", { embed: 
             new MessageEmbed()
-            .setTitle('Deleting ticket in 5 seconds')
+            .setTitle('Deleting ticket in 5 seconds') 
             .setImage('https://cdn.discordapp.com/attachments/819328439600939081/819332521229025300/tenor.gif')
-            .setColor('RED')
+            .setColor('RED') 
         })
-
-        await client.DBTickets.findOneAndDelete({ gId: message.guild.id, chanId: message.channel.id })
-
+    
         setTimeout(() => message.channel.delete(), 5000)
         return
     }} 
-
 /*
 const ticket = new mongoose.Schema({
     gId: { type: String },

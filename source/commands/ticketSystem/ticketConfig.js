@@ -8,7 +8,7 @@ module.exports = { //! {PREFIX}ticketconfig <Role / Claim / Category /
     usage: `${PREFIX}ticketconfig <Role / Claim / Category> <Option>`, 
     examples: `\`${PREFIX}\`ticketconfig `,
     perms: ['MANAGE_GUILD'],
-    cooldown: 0,
+    cooldown: 5,
     devOnly: false, 
     execute: async function(client, message, args) {
         
