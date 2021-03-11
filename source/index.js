@@ -33,6 +33,8 @@ client.on('ready', async () => {
         useFindAndModify: false
     }); { setTimeout(() => { log(chalk.green(`<DATABASE>`) + (' ') + chalk.blue(`Logged in!`)); }, 5) }
     //Schemas
-    client.DBGuild = require('../config/schemas/guildSchema')
-    client.DBCase = require('../config/schemas/caseSchema')
+    client.DBGuild = require('../config/schemas/guildSchema');
+    client.DBCase = require('../config/schemas/caseSchema');
+    client.DBTicketConfig = require('../config/schemas/ticketConfig');
+    client.DBTickets = require('../config/schemas/ticketSystem');
 })();
