@@ -1,4 +1,4 @@
-const { MessageEmbed, Message, MessageReaction } = require('discord.js');
+const { MessageEmbed } = require('discord.js');
 const { PREFIX } = require('../../../config/botconfig.json');
 
 const embed = new MessageEmbed()

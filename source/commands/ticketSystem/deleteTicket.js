@@ -1,6 +1,5 @@
 const { MessageEmbed } = require('discord.js');
 const { PREFIX } = require('../../../config/botconfig.json');
-const ticket = require('../../../config/schemas/ticketSystem');
 
 module.exports = { 
     name: "deleteticket", 
@@ -12,7 +11,7 @@ module.exports = {
     devOnly: false,  
     execute: async function(client, message, args) {
 
-        const tickets = await ticket.findOne({ gId: message.guild.id, chanId: message.channel.id })
+        const tickets = await client.DBTickets.findOne({ gId: message.guild.id, chanId: message.channel.id })
         if (!tickets) return message.channel.send('You can only delete ticket channels!')
 
         message.channel.send("", { embed: 
@@ -22,12 +21,10 @@ module.exports = {
             .setColor('RED')
         })
 
-        await ticket.findOneAndDelete({ gId: message.guild.id, chanId: message.channel.id })
+        await client.DBTickets.findOneAndDelete({ gId: message.guild.id, chanId: message.channel.id })
 
         setTimeout(() => message.channel.delete(), 5000)
-
         return
-        
     }} 
 
 /*
