@@ -1,7 +1,5 @@
 const { MessageEmbed, Message, MessageReaction } = require('discord.js');
 const { PREFIX } = require('../../../config/botconfig.json');
-const ticket = require('../../../config/schemas/ticketSystem');
-const ticketConfig = require('../../../config/schemas/ticketConfig');
 
 const embed = new MessageEmbed()
 .setTitle('New Ticket!')
@@ -17,10 +15,10 @@ module.exports = {
     devOnly: false,  
     execute: async function(client, message, args) {
 
-        const config = await ticketConfig.findOne({ gId: message.guild.id })
+        const config = await client.DBTicketConfig.findOne({ gId: message.guild.id })
         if (!config) return message.channel.send('Ticket system is disabled on ' + message.guild.name)
         
-        const isHere = await ticket.findOne({ gId: message.guild.id, uId: message.author.id })
+        const isHere = await client.DBTickets.findOne({ gId: message.guild.id, uId: message.author.id })
         if (isHere) return message.channel.send(`You already have a ticket open! In <#${isHere.chanId}>`)   
 
         let reason = args.slice(1)?.join(' ')
@@ -37,7 +35,7 @@ module.exports = {
 
         const role = await message.guild.roles.cache.get(config.roleId)
         if (config.roleId && !role) {
-            await ticketConfig.findOneAndUpdate({ gId: message.guild.id }, { gId: message.guild.id, roleId: null})
+            await client.DBTicketConfig.findOneAndUpdate({ gId: message.guild.id }, { gId: message.guild.id, roleId: null})
         } else permissions.push({ id: config.roleId, allow: 117760 })
 
         const channel = await message.guild.channels.create(`ticket-${message.member.displayName || message.author.username}`, {
@@ -58,7 +56,7 @@ module.exports = {
             .setDescription(`Your ticket has been created in ${channel}`)
         })
         
-        await new ticket({
+        await new client.DBTickets({
             gId: message.guild.id,
             uId: message.author.id,
             chanId: channel.id,
