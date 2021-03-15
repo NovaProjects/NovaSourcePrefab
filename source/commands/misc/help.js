@@ -1,4 +1,4 @@
-const {PREFIX } = require('../../../config/botconfig.json').PREFIX;
+const { PREFIX, DISCORD } = require('../../../config/botconfig.json').PREFIX;
 const { MessageEmbed } = require("discord.js");
 
 
@@ -18,7 +18,7 @@ module.exports = {
                 .setColor("#FD0061")
 
             let MIEmbed = new MessageEmbed()
-                .setURL("DISCORD INVITE")
+                .setURL(DISCORD)
                 .setColor('#FD0061')
                 .setTitle("Help Menu")
                 .setDescription(`Use \`!help [command name]\` to get more info on a specific command, for example: \`!help ping\` \n Dont Forget to use the \`signup\` command to signup for our bot and read our [Terms Of Service](https://cheemsmedia.xyz/tos)`)

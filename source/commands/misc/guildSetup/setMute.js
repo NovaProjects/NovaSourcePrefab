@@ -16,7 +16,7 @@ module.exports = {
         let roleid = args[0]
         if(!roleid) return message.reply('Mention a channel or give me a channel id!')
         await client.DBGuild.findByIdAndUpdate(message.guild.id, {$set: {muterole: roleid }}).then(
-            message.channel.send(`The new prefix is: ${prefix}`) 
+            message.channel.send(`New Mute Role is: ${roleid}`) 
         )
     }
 }
