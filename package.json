@@ -1,17 +1,21 @@
 {
-  "name": "novaopensource",
-  "version": "1.0.0",
-  "description": "",
-  "main": "source/index.js",
-  "scripts": {
-    "test": "node ."
-  },
-  "author": "EmanSza",
-  "license": "ISC",
-  "dependencies": {
-    "axios": "^0.21.1",
-    "chalk": "^4.1.0",
-    "discord.js": "^12.5.1",
-    "mongoose": "^5.11.15"
-  }
+    "name": "novaopensource",
+    "version": "1.0.0",
+    "description": "",
+    "main": "src/index.js",
+    "scripts": {
+        "dev": "nodemon .",
+        "deploy": "node ."
+    },
+    "author": "EmanSza",
+    "license": "ISC",
+    "dependencies": {
+        "axios": "^0.21.1",
+        "chalk": "^4.1.0",
+        "discord.js": "^12.5.1",
+        "mongoose": "^5.11.15"
+    },
+    "devDependencies": {
+        "nodemon": "^2.0.7"
+    }
 }
