@@ -12,7 +12,7 @@ module.exports = async (client, message) => {
 
     let msgargs = message.content.substring(DBGuild.prefix.length).split(new RegExp(/\s+/));
     let cmdName = msgargs.shift().toLowerCase();
-    
+
     const command = await client.commands.get(cmdName) || client.commands.find(cmd => cmd.aliases && cmd.aliases.includes(cmdName));
 
     if (!command) return;

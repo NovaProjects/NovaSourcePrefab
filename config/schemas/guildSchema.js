@@ -1,11 +1,11 @@
 const { Schema, model } = require('mongoose');
-
+const {PREFIX}  = require('../botconfig.json')
 
 const guildSchema = Schema({
     _id: String,
     prefix: {
         type: String,
-        default: '!'
+        default: PREFIX
     },
     modlog: {
         type: String,
