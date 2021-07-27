@@ -16,15 +16,16 @@ const { registerCommands, registerEvents } = require(path.join(
 ));
 
 // Client Statements
-const client = new Discord.Client();
+const client = new Discord.Client({restRequestTimeout: 120*1000});
 //Login
+try{
 client.login(TOKEN);
+} catch(err){
+    console.log(err)
+}
 {
     log(chalk.red("<CLIENT>") + " " + chalk.blue("Logging in"));
 }
-client
-  .on("debug", console.log)
-  .on("warn", console.log)
 //Cient Ready Statement
 client.on("ready", async () => {
     setTimeout(() => {
