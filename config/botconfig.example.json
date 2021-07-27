@@ -1,7 +1,0 @@
-{
-    "TOKEN": "TOKEN HERE",
-    "PREFIX": "PREFIX HERE",
-    "MONGOURI": "MONGO URI",
-    "DISCORD": "DISCORDINVITE",
-    "DEVELOPERS": ["I", "you", "he", "she", "it", "we", "you", "they"] 
-}

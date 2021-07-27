@@ -22,6 +22,9 @@ client.login(TOKEN);
 {
     log(chalk.red("<CLIENT>") + " " + chalk.blue("Logging in"));
 }
+client
+  .on("debug", console.log)
+  .on("warn", console.log)
 //Cient Ready Statement
 client.on("ready", async () => {
     setTimeout(() => {
