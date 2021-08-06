@@ -1,5 +1,5 @@
 const { processArguments, msToTime } = require("../utils/utils")
-const { Collection } = require("discord.js")
+const { Collection, Permissions } = require("discord.js")
 const cooldowns = new Collection();
 const { Developers } = require('../../config/botconfig.json')
 
@@ -20,8 +20,8 @@ module.exports = async (client, message) => {
     if(command.disabled === true) return;
 
 
-
-    if (command.perms && !message.member.hasPermission(command.perms)) return;
+    console.log(command.perms)
+    if (command.perms && !message.member.permissions.has(command.perms)) return;
     
     const cd = command.cooldown;
     if (cd) {
